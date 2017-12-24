@@ -1,0 +1,33 @@
+.index_show{position: relative;}
+.loop_block{
+    /*width:15%;*/
+    width: 200px;
+    margin: 5px;
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+}
+.loop_block .cover{
+    height: 200px;
+}
+.loop_block .describe{
+    position: absolute;
+    height: 180px;
+    top: 0;
+    font-size: 12px;
+    color: #6cf;
+    -webkit-writing-mode: tb-rl;
+    -ms-writing-mode:tb-rl;
+    writing-mode: tb-rl;
+    margin: 5px;
+    width: 30px;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    background: rgba(255,255,255,.4);
+}
+.loop_block .describe.left{
+    left: 0;
+}
+.loop_block .describe.right{right: 0;}

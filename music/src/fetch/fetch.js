@@ -1,6 +1,6 @@
 export default function FetchData(url,type,data){
     let proxy = 'https://bird.ioliu.cn/v1/?url=';
-    console.log(type);
+
     if(type.toLowerCase() === 'get'){
         return fetch(proxy + url);
     }else{
@@ -11,11 +11,11 @@ export default function FetchData(url,type,data){
             }
         }
         datas.substring(0,-1);
-        return fetch(proxy + url,{
+        let requesturl = proxy + url;
+        return fetch(requesturl,{
             method: type,
             headers: {
-                "Accept": 'application/json,text/plain',
-                "Content-type": "application/x-www-form-urlencoded;charset=UTF-8",
+                "Content-Type": "application/x-www-form-urlencoded"
             },
             body: datas
         })
