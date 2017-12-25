@@ -20,7 +20,7 @@ class Index extends React.Component{
                 <div>
                     <Route exact path="/" component={Search}/>
                     <Route exact path="/" component={IndexCarousel}/>
-                    <Route path="/single" component={Single}/>
+                    <Route path="/single/:id" component={Single}/>
                 </div>
             </Router>
         )
