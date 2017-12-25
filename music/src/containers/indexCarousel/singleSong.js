@@ -23,9 +23,9 @@ export default class SingSong extends React.Component{
         })
     }
     render(){
-        if(this.state.songs){
+        if(this.props.source.songs){
             return(
-                this.state.songs.map((item,index) => {
+                this.props.source.songs.map((item,index) => {
                     return (
                         <Link key={index} to="single">
                             <li className="single_song" key={index} data-id={item.id} onClick={event => this.songDetail(event)} time={item.duration}>
