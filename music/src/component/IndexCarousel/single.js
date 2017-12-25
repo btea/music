@@ -6,7 +6,7 @@ export default class Single extends React.Component{
     }
 
     render(){
-        console.log(this.props.params.id);
+        console.log(this.props.match);
         return(
             <div className="single_music">
                 <header className="back">返回</header>

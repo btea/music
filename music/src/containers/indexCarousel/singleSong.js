@@ -27,7 +27,7 @@ export default class SingSong extends React.Component{
             return(
                 this.props.source.map((item,index) => {
                     return (
-                        <Link key={index} to={"single" + item.id}>
+                        <Link key={index} to={"single/" + item.id}>
                             <li className="single_song" key={index} data-id={item.id} onClick={event => this.songDetail(event)} time={item.duration}>
                                 <div className="img_picUrl">
                                     <img src={index < 10 ? item.album.picUrl :''} data-src={index >= 10 ? item.album.picUrl : ''} alt="" className="picUrl"/>
@@ -40,7 +40,6 @@ export default class SingSong extends React.Component{
                                     <div className="className">{item.artists[0].name}</div>
                                 </div>
                             </li>
-                            {hashHistory.push(`single${item.id}`)}
                         </Link>
 
                     )
