@@ -1,0 +1,27 @@
+.search_words{
+    margin: 10px;
+    width: 100%;
+    text-align: center;
+}
+.search_words .input_words{
+    width: 50%;
+    height: 25px;
+    border: none;
+    text-align: center;
+    outline: none;
+    background: rgba(0,0,0,.5);
+    /*改变光标颜色*/
+    caret-color: #6cf;
+}
+input::-webkit-input-placeholder{
+    color: #66ccff;
+    opacity: .5;
+}
+input:-moz-placeholder{
+    color: #66ccff;
+    opacity: .5;
+}
+input:-ms-input-placeholder{
+    color: #66ccff;
+    opacity: .5;
+}

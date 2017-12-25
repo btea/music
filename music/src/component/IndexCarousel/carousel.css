@@ -1,7 +1,11 @@
-.index_show{position: relative;}
+.index_show .playlist_block{
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
 .loop_block{
-    /*width:15%;*/
-    width: 200px;
+    width:12.5%;
+    /*width: 200px;*/
     margin: 5px;
     display: inline-block;
     overflow: hidden;

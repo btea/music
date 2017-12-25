@@ -1,1 +1,75 @@
-
+.index_show .song_lists_show{
+    color: black;
+}
+.playlist_detail span{font-size: 12px;}
+.playlist_detail .details_describe{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    font-size: 12px;
+    /*white-space: nowrap;*/
+    overflow: hidden;
+    text-indent: 2em;
+    /*text-overflow: ellipsis; !*可以用来多行文本的情况下，用省略号'...'隐藏超出范围的文本*!*/
+    /*display: -webkit-box; !*必须结合的属性，将对象作为弹性伸缩盒子模型显示*!*/
+    /*-webkit-line-clamp: 5;*/
+    /*-webkit-box-orient: vertical; !*必须结合的属性，设置或检索伸缩盒子对象的子元素的排列方式*!*/
+}
+.playlist_show .playlist_detail{position: relative;}
+.playlist_show .playlist_cover{
+    width: 100px;
+    height: 100px;
+}
+.playlist_show .playCount{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+}
+.playlist_show .shareCount{
+    position: absolute;
+    bottom: 10px;
+    left: 50px;
+}
+/*歌曲单独展示*/
+ul,li{list-style: none;margin: 0;padding: 0;}
+.playlist_show .single_song .picUrl,.playlist_show .single_song .img_picUrl{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.playlist_show .single_song:after,.playlist_show .single_song .name:after{
+    content: '';
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}
+.playlist_show .single_song{
+    padding: 10px 15px;
+    border-top: 1px solid rgba(0,0,0,.5);
+    border-bottom: 1px solid rgba(0,0,0,.5);
+    margin: 0 5px;
+    margin-top: -1px;
+}
+.playlist_show .single_song .right{
+    margin-left: 5px;
+}
+.playlist_show .single_song > div{float: left;}
+.playlist_show .single_song .song_name{
+    display: inline-block;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+}
+.playlist_show .single_song .mv{
+    font-size: 12px;
+    color: pink;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid pink;
+    float: left;
+    margin-left: 3px;
+}
