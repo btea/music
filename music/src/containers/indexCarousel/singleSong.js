@@ -6,17 +6,7 @@ export default class SingSong extends React.Component{
     constructor(props){
         super(props)
     }
-    songDetail(event){
-        let target = event.currentTarget;
-        let id = target.getAttribute('data-id');
-        FetchData('https://api.imjad.cn/cloudmusic/?type=song&id=' + id + '&br=320000','get').then(
-            res => {
-                res.json().then(response => {
-                    console.log(response);
-                })
-            }
-        )
-    }
+
     componentWillMount(){
         this.setState({
             songs: this.props.source
@@ -24,11 +14,21 @@ export default class SingSong extends React.Component{
     }
     render(){
         if(this.props.source){
+            let data,path;
             return(
                 this.props.source.map((item,index) => {
+                    data = {
+                        id: item.id,
+                        picUrl: item.album.picUrl,
+                        duration: item.duration
+                    };
+                    path = {
+                        pathname: 'single/',
+                        state: data
+                    };
                     return (
-                        <Link key={index} to={"single/" + item.id}>
-                            <li className="single_song" key={index} data-id={item.id} onClick={event => this.songDetail(event)} time={item.duration}>
+                        <Link key={index} to={path}>
+                            <li className="single_song" key={index} data-id={item.id}>
                                 <div className="img_picUrl">
                                     <img src={index < 10 ? item.album.picUrl :''} data-src={index >= 10 ? item.album.picUrl : ''} alt="" className="picUrl"/>
                                 </div>

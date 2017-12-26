@@ -1,0 +1,62 @@
+.single_music{
+    /*background: #000000;*/
+    position: relative;
+}
+
+.single_music .back{
+    height: 40px;
+    border-bottom: 1px solid #efefef;
+}
+.single_music .container{
+    text-align: center;
+    padding: 75px 0;
+    height: 300px;
+    box-sizing: border-box;
+}
+.single_music .container img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    animation: roll 10s linear infinite;
+    -webkit-animation: roll 10s linear infinite;
+}
+@-webkit-keyframes roll {
+    0%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+@keyframes roll {
+    0%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+/*google图标样式自定义*/
+.material-icons{
+    /*color: #6cf;*/
+    color: rgba(78,228,224,.5);
+    font-size: 40px;
+}
+footer.progress_bar{
+    position: relative;
+    /*background: #000000;*/
+    color: #efefef;
+    width: 100%;
+}
+.progress_bar .rate{
+
+}
+
+.button_list div{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(78,228,224,.5);
+}

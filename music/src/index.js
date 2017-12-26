@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
+import {BrowserRouter as Router,Route} from 'react-router-dom';
 import './index.css';
 import IndexCarousel from './containers/indexCarousel/carousel';
 import Search from './component/index';
@@ -20,7 +20,7 @@ class Index extends React.Component{
                 <div>
                     <Route exact path="/" component={Search}/>
                     <Route exact path="/" component={IndexCarousel}/>
-                    <Route path="/single/:id" component={Single}/>
+                    <Route path="/single" component={Single}/>
                 </div>
             </Router>
         )
