@@ -59,16 +59,18 @@ export default class Single extends React.Component{
         )
     }
     render(){
-        console.log(this.state);
         if(this.state.song){
+            let playState = this.state.playState ? 'running':'paused';
             return(
                 <div className="single_music">
                     <Link to="/">
-                        <header className="back">返回</header>
+                        <header className="back">
+                            <i className="material-icons">arrow_back</i>
+                        </header>
                     </Link>
                     {/*播放动画*/}
                     <div className="container">
-                        <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: this.state.playState ? 'play':'paused'}} />
+                        <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState}} />
                     </div>
                     {/*播放进度条*/}
                     <footer className="progress_bar">
