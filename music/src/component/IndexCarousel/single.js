@@ -10,7 +10,7 @@ export default class Single extends React.Component{
             song: null,
             buffer: 0, /*缓冲长度*/
             played: 0,  /*已经播放长度*/
-            duration: 0,
+            duration: 0, /*总时长*/
             play: false, /*是否播放,默认为否*/
             playState: false /*动画的状态*/
         }

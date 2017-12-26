@@ -1,5 +1,4 @@
 import React from 'react';
-import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
 import FetchData from '../../fetch/fetch';
 import CarouselTemplate from '../../component/IndexCarousel/carousel';
 import SingleSong from './singleSong';
@@ -40,6 +39,9 @@ export default class IndexCarousel extends React.Component{
             })
         )
     }
+
+
+
     render(){
         console.log(this.state);
         if(!this.state.playlists){
@@ -82,7 +84,7 @@ export default class IndexCarousel extends React.Component{
 }
 
 function searchWord(){
-    let  words = ['古风','ACG','动漫','纯音乐','怀旧','治愈','轻音乐','古风对白歌','唯美','秦时明月','古装电视剧'];
+    let  words = ['古风','ACG','动漫','纯音乐','怀旧','治愈','轻音乐','古风对白歌','唯美','秦时明月','古装','古风集','洛天依','90回忆','动漫op','动漫ed'];
     let index = Math.floor(Math.random()*(words.length) + 1) - 1;
     return words[index];
 }

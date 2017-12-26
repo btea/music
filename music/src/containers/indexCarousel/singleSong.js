@@ -1,6 +1,5 @@
 import React from 'react';
-import {Link,hashHistory} from 'react-router-dom';
-import FetchData from '../../fetch/fetch';
+import {Link} from 'react-router-dom';
 
 export default class SingSong extends React.Component{
     constructor(props){
@@ -12,6 +11,7 @@ export default class SingSong extends React.Component{
             songs: this.props.source
         })
     }
+
     render(){
         if(this.props.source){
             let data,path;
@@ -30,7 +30,7 @@ export default class SingSong extends React.Component{
                         <Link key={index} to={path}>
                             <li className="single_song" key={index} data-id={item.id}>
                                 <div className="img_picUrl">
-                                    <img src={index < 10 ? item.album.picUrl :''} data-src={index >= 10 ? item.album.picUrl : ''} alt="" className="picUrl"/>
+                                    <img src={index < 10 ? item.album.picUrl :''} data-src={index >= 10 ? item.album.picUrl : ''} alt="" className="picUrl" ref="cover_img"/>
                                 </div>
                                 <div className="right">
                                     <div className="name">
