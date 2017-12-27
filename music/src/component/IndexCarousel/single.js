@@ -12,17 +12,33 @@ export default class Single extends React.Component{
             played: 0,  /*已经播放长度*/
             duration: 0, /*总时长*/
             play: false, /*是否播放,默认为否*/
-            playState: false /*动画的状态*/
+            playState: false, /*动画的状态*/
+            barWidth: 0, /*进度条长度*/
+            currentTime: 0 /*当前播放进度*/
         }
     }
 
     // 监听音频播放进度
     progress(event){
+        let bar = this.refs.pro_bar_w;
+        let style = window.getComputedStyle(bar,null) || bar.currentStyle;
+        let w = style.width.split('px')[0];
         let target = event.target;
-        this.setState({
-            buffer: target.buffered.end(0)*1000,
-            played:  target.currentTime*1000,
-        });
+        if(!target.ended){
+            this.setState({
+                buffer: target.buffered.end(0)*1000,
+                played:  target.currentTime*1000,
+                barWidth: w
+            });
+        }else{
+            this.setState({
+                playState: false,
+                play: false,
+                played: this.state.duration
+            })
+
+        }
+
     }
     // 播放/暂停切换
     playStatus(){
@@ -30,7 +46,7 @@ export default class Single extends React.Component{
             play: !this.state.play,
             playState: !this.state.playState
         },() => {
-            let targetVideo = this.refs.video;
+            let targetVideo = this.refs.audio;
             if(this.state.play){
                 targetVideo.play();
             }else{
@@ -39,9 +55,17 @@ export default class Single extends React.Component{
         })
 
     }
-
-    componentDidUpdate(){
-        let video = this.refs.video;
+    // 定时播放
+    timePlay(event){
+        let target = event.target;
+        let audio = this.refs.audio;
+        let percentage = (event.pageX - 37) / this.state.barWidth;
+        console.log(percentage);
+        console.log(this.state);
+        audio.currentTime =  this.state.duration * percentage / 1000;
+        this.setState({
+            played: this.state.duration * percentage
+        })
     }
 
     componentWillMount(){
@@ -69,23 +93,25 @@ export default class Single extends React.Component{
                         </header>
                     </Link>
                     {/*播放动画*/}
-                    <div className="container">
-                        <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState}} />
-                    </div>
+                    <Link to="">
+                        <div className="container">
+                            <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState}} />
+                        </div>
+                    </Link>
                     {/*播放进度条*/}
                     <footer className="progress_bar">
-                        <div className="rate">
-                            {time_show(this.state.duration)}
-                            <div className="buffer">
-                                {time_show(this.state.buffer)}
+                        <span className="played_time">{time_show(this.state.played)}</span>
+                        <div className="rate" ref="pro_bar_w" onClick={(event) => this.timePlay(event)}>
+                            <div className="buffer" style={{width: this.state.buffer / this.state.duration * this.state.barWidth + 'px'}}>
+                                {/*{time_show(this.state.buffer)}*/}
                             </div>
-                            <div className="played">
-                                {time_show(this.state.played)}
+                            <div className="played"  style={{width: this.state.played / this.state.duration * this.state.barWidth + 'px'}}>
                             </div>
                         </div>
-                        <video src={this.state.song.url} ref="video" onTimeUpdate={(event) => this.progress(event)}>
+                        <span className="total_time">{time_show(this.state.duration)}</span>
+                        <audio src={this.state.song.url} ref="audio" onTimeUpdate={(event) => this.progress(event)}>
 
-                        </video>
+                        </audio>
                         <div className="button_list">
                             <div className="per">
                                 <i className="material-icons">skip_previous</i>

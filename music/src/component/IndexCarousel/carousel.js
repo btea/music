@@ -12,9 +12,6 @@ export default class CarouselTemplate extends React.Component{
         console.log(e);
         console.log(this);
         let listid = this.props.source.id;
-        let data = {
-            id: listid
-        };
         FetchData('http://music.163.com/api/playlist/detail/?id=' + listid,'get').then(res => {
             res.json().then(response => {
                 // 改变父组件的state，显示歌单
