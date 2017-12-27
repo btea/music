@@ -14,7 +14,8 @@ export default class Single extends React.Component{
             play: false, /*是否播放,默认为否*/
             playState: false, /*动画的状态*/
             barWidth: 0, /*进度条长度*/
-            currentTime: 0 /*当前播放进度*/
+            currentTime: 0,/*当前播放进度*/
+            lyricShow: false /*是否显示歌词*/
         }
     }
 
@@ -67,6 +68,13 @@ export default class Single extends React.Component{
             played: this.state.duration * percentage
         })
     }
+    // 歌词显示/隐藏
+    lyricShow(){
+        this.setState({
+            lyricShow: !this.state.lyricShow
+        })
+    }
+
 
     componentWillMount(){
         let props = this.props;
@@ -93,11 +101,12 @@ export default class Single extends React.Component{
                         </header>
                     </Link>
                     {/*播放动画*/}
-                    <Link to="">
-                        <div className="container">
-                            <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState}} />
+                    <div className="container">
+                        <div className="lyrci_show" style={{display: this.state.lyricShow ? 'block': 'none'}} onClick={() => this.lyricShow()}>
+                            歌词
                         </div>
-                    </Link>
+                        <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState,display:this.state.lyricShow ? 'none':'inline-block'}} onClick={() => this.lyricShow()}/>
+                    </div>
                     {/*播放进度条*/}
                     <footer className="progress_bar">
                         <span className="played_time">{time_show(this.state.played)}</span>

@@ -1,3 +1,5 @@
+
+
 .single_music{
     /*background: #000000;*/
     position: relative;
@@ -9,11 +11,13 @@
 }
 .single_music .container{
     text-align: center;
-    padding: 75px 0;
+    /*padding: 75px 0;*/
     height: 300px;
     box-sizing: border-box;
 }
+/*动画展示*/
 .single_music .container img{
+    margin: 75px auto;
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -40,6 +44,13 @@
         transform: rotate(360deg);
     }
 }
+/*歌词显示*/
+.single_music .container .lyrci_show{
+    height: 300px;
+    width: 70%;
+    margin: 0 auto;
+}
+
 
 /*google图标样式自定义*/
 .material-icons{
