@@ -19,7 +19,8 @@ export default class Single extends React.Component{
             lyricShow: false, /*是否显示歌词*/
             lyric: null, /*获取的歌词*/
             tlyric: null, /*需要翻译的歌词，翻译之后*/
-            lyricTime: null /*歌曲时间分布*/
+            lyricTime: null, /*歌曲时间分布*/
+            marginTop: 130 /*歌词展示默认位置*/
         }
     }
 
@@ -49,9 +50,9 @@ export default class Single extends React.Component{
                 if(this.state.lyricTime[i] !== '00:00'){
                     if(time >= this.state.lyricTime[i] && time < this.state.lyricTime[i+1]){
                         this.setState({
-                            cur: i
+                            cur: i,
+                            marginTop: 130 - i*20
                         });
-                        this.refs.lyric.style.marginTop = - (i *20 - 130) +'px';
                     }
                 }
             }
@@ -108,7 +109,7 @@ export default class Single extends React.Component{
             let reg = new RegExp(/\[.{8,9}\]/);
             // newLyr(数组)(包含时间和歌词);
             let newLyr = lyric.split(/\n/);
-            newLyr.splice(newLyr.length - 1,1);//删除最后一段多余
+            newLyr.splice(newLyr.length - 1,1);//删除最后一段多余  最后一段似乎可不删除？
             for(let i = 0; i < newLyr.length; i++){
                 if(!reg.test(newLyr[i])){
                     newLyr[i] = '[00:00:00]' + newLyr[i];
@@ -119,6 +120,8 @@ export default class Single extends React.Component{
             let lastTime = newLyric.match(/\[.{8,9}\]/g);
             let lastLyric = newLyric.split(reg);
             lastLyric.splice(0,1);
+            lastTime.push(time_show(this.state.duration));
+            lastLyric.push('');
             let lyricInf = [];
             for(let i = 0; i < lastTime.length; i++){
                 lyricInf.push({
@@ -176,7 +179,7 @@ export default class Single extends React.Component{
                     </Link>
                     {/*播放动画*/}
                     <div className="container">
-                        <pre className="lyric_show" style={{display: this.state.lyricShow ? 'block': 'none'}} onClick={() => this.lyricShow()} ref='lyric'>
+                        <pre className="lyric_show" style={{display: this.state.lyricShow ? 'block': 'none',marginTop: this.state.marginTop + 'px'}} onClick={() => this.lyricShow()} ref='lyric'>
                             {
                                 this.state.lyric.map((item,index) => {
                                     return <p key={index} data-time={item.time.slice(1,6)} className={index === this.state.cur ? 'line_lyric show':'line_lyric'}>{item.lyric}</p>

@@ -59,6 +59,11 @@
     line-height: 30px;
     text-align: center;
     vertical-align: middle;
+    -webkit-transition: all .8s;
+    -moz-transition: all .8s;
+    -ms-transition: all .8s;
+    -o-transition: all .8s;
+    transition: all .8s;
 }
 .single_music .line_lyric{
     margin: 0;
