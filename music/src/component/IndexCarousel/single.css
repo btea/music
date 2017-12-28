@@ -1,7 +1,7 @@
 
 
 .single_music{
-    /*background: #000000;*/
+    /*background: #efefef;*/
     position: relative;
 }
 
@@ -11,9 +11,11 @@
 }
 .single_music .container{
     text-align: center;
-    /*padding: 75px 0;*/
+    margin: 20px 0;
     height: 300px;
-    box-sizing: border-box;
+    /*overflow: hidden;*/
+    overflow: scroll;
+    /*box-sizing: border-box;*/
 }
 /*动画展示*/
 .single_music .container img{
@@ -45,12 +47,26 @@
     }
 }
 /*歌词显示*/
-.single_music .container .lyrci_show{
-    height: 300px;
+.single_music .container .lyric_show{
+    /*height: 300px;*/
+    min-height: 300px;
     width: 70%;
     margin: 0 auto;
+    background: #efefef;
+    opacity: .5;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    vertical-align: middle;
 }
-
+.single_music .line_lyric{
+    margin: 0;
+    padding: 0;
+    height: 20px;
+}
+.single_music .line_lyric.show{
+    color: #66ccff;
+}
 
 /*google图标样式自定义*/
 .material-icons{

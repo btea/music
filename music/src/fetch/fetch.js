@@ -1,8 +1,7 @@
 export default function FetchData(url,type,data){
-    let proxy = 'https://bird.ioliu.cn/v1/?url=';
-
+    let req = 'https://api.imjad.cn/cloudmusic/?';
     if(type.toLowerCase() === 'get'){
-        return fetch(proxy + url);
+        return fetch(req + url);
     }else{
         let datas = "";
         for(let i in data){
@@ -11,8 +10,8 @@ export default function FetchData(url,type,data){
             }
         }
         datas.substring(0,-1);
-        let requesturl = proxy + url;
-        return fetch(requesturl,{
+        let requestUrl = req + url;
+        return fetch(requestUrl,{
             method: type,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"

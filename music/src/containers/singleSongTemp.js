@@ -62,14 +62,14 @@ export default class SingleSongTemp extends React.Component{
         return(
             <li className="single_song"  data-id={item.id} ref="cover_img">
                 <div className="img_picUrl">
-                    <img src={index < 10 ? item.album.picUrl :''} data-src={index >= 10 ? item.album.picUrl : ''} alt="" className="picUrl"/>
+                    <img src={index < 10 ? item.al.picUrl :''} data-src={index >= 10 ? item.al.picUrl : ''} alt="" className="picUrl"/>
                 </div>
                 <div className="right">
                     <div className="name">
                         <div className="song_name">{item.name}</div>
-                        <span className="mv" style={{display: item.mvid ? 'block' : 'none'}} data-mv={item.mvid || ''}>MV</span>
+                        <span className="mv" style={{display: item.mv ? 'block' : 'none'}} data-mv={item.mv || ''}>MV</span>
                     </div>
-                    <div className="className">{item.artists[0].name}</div>
+                    <div className="className">{item.ar[0].name}</div>
                 </div>
             </li>
         )

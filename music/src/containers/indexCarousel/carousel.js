@@ -22,17 +22,10 @@ export default class IndexCarousel extends React.Component{
 
     componentWillMount(){
         let s = searchWord();
-        let request = {
-            type: 'post',
-            url: 'http://music.163.com/api/search/pc',
-            data: {
-                type: 1000,
-                s: s
-            }
-        };
         // 获取关键词歌单
-        FetchData(request.url,request.type,request.data).then(
+        FetchData('type=search&search_type=1000&s=' + s,'get').then(
             res => res.json().then(response => {
+                console.log(response);
                 this.setState({
                     playlists: response.result.playlists
                 })
@@ -48,7 +41,7 @@ export default class IndexCarousel extends React.Component{
                 <img src={require('../../images/loading.gif')} alt=''/>
             </div>
         }else{
-            let descDirection,location,status = this.state.songListShow,result = this.state.songList.result;
+            let descDirection,location,status = this.state.songListShow,result = this.state.songList.playlist;
             if(Math.random() >= 0.5){
                 descDirection = 'describe left';
                 location = 'left';

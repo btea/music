@@ -7,6 +7,7 @@ export default class Single extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            cur: null, // 当前播放进度高亮显示的歌词
             song: null,
             buffer: 0, /*缓冲长度*/
             played: 0,  /*已经播放长度*/
@@ -15,7 +16,10 @@ export default class Single extends React.Component{
             playState: false, /*动画的状态*/
             barWidth: 0, /*进度条长度*/
             currentTime: 0,/*当前播放进度*/
-            lyricShow: false /*是否显示歌词*/
+            lyricShow: false, /*是否显示歌词*/
+            lyric: null, /*获取的歌词*/
+            tlyric: null, /*需要翻译的歌词，翻译之后*/
+            lyricTime: null /*歌曲时间分布*/
         }
     }
 
@@ -39,6 +43,27 @@ export default class Single extends React.Component{
             })
 
         }
+        if(this.state.lyricTime){
+            let time = time_show(this.state.played); //当前播放时间
+            for(let i = 0; i < this.state.lyricTime.length; i++){
+                if(this.state.lyricTime[i] !== '00:00'){
+                    if(time >= this.state.lyricTime[i] && time < this.state.lyricTime[i+1]){
+                        this.setState({
+                            cur: i
+                        })
+                    }
+                }
+            }
+        }else{
+            let p = document.querySelectorAll('.lyric_show p');
+            let lyricTime = [];
+            for(let  i = 0; i < p.length; i++){
+                lyricTime.push(p[i].getAttribute('data-time'));
+            }
+            this.setState({
+                lyricTime: lyricTime
+            })
+        }
 
     }
     // 播放/暂停切换
@@ -61,8 +86,6 @@ export default class Single extends React.Component{
         let target = event.target;
         let audio = this.refs.audio;
         let percentage = (event.pageX - 37) / this.state.barWidth;
-        console.log(percentage);
-        console.log(this.state);
         audio.currentTime =  this.state.duration * percentage / 1000;
         this.setState({
             played: this.state.duration * percentage
@@ -71,15 +94,47 @@ export default class Single extends React.Component{
     // 歌词显示/隐藏
     lyricShow(){
         this.setState({
-            lyricShow: !this.state.lyricShow
+            lyricShow: !this.state.lyricShow,
+            playState: !this.state.playState
         })
     }
 
 
+    // 歌词格式处理
+    lyricFormat(lyric){
+        if(lyric){
+            // 匹配时间(数组)
+            let reg = new RegExp(/\[.{8,9}\]/);
+            // newLyr(数组)(包含时间和歌词);
+            let newLyr = lyric.split(/\n/);
+            newLyr.splice(newLyr.length - 1,1);//删除最后一段多余
+            for(let i = 0; i < newLyr.length; i++){
+                if(!reg.test(newLyr[i])){
+                    newLyr[i] = '[00:00:00]' + newLyr[i];
+                }
+            }
+            // 匹配了时间之后新的歌词
+            let newLyric = newLyr.join('\n');
+            let lastTime = newLyric.match(/\[.{8,9}\]/g);
+            let lastLyric = newLyric.split(reg);
+            lastLyric.splice(0,1);
+            let lyricInf = [];
+            for(let i = 0; i < lastTime.length; i++){
+                lyricInf.push({
+                    time: lastTime[i],
+                    lyric: lastLyric[i]
+                })
+            }
+            this.setState({
+                lyric: lyricInf
+            });
+        }
+    }
+
     componentWillMount(){
         let props = this.props;
         let state = props.location.state;
-        FetchData('https://api.imjad.cn/cloudmusic/?type=song&id=' + state.id + '&br=320000','get').then(
+        FetchData('type=song&id=' + state.id + '&br=320000','get').then(
             res => {
                 res.json().then(response => {
                     this.setState({
@@ -88,10 +143,28 @@ export default class Single extends React.Component{
                     });
                 })
             }
-        )
+        );
+        // 获取歌词
+        FetchData('type=lyric&search_type=1006&id='+ state.id,'get').then(
+            res => {
+                res.json().then(response => {
+                    if(response.nolyric){
+                        this.setState({
+                            lyric: '无歌词'
+                        })
+                    }else{
+                        // this.setState({
+                        //     lyric: response.lrc.lyric,
+                        //     tlyric: response.tlyric.lyric
+                        // })
+                        this.lyricFormat(response.lrc.lyric)
+                    }
+                })
+            }
+        );
     }
     render(){
-        if(this.state.song){
+        if(this.state.song && this.state.lyric){
             let playState = this.state.playState ? 'running':'paused';
             return(
                 <div className="single_music">
@@ -102,9 +175,13 @@ export default class Single extends React.Component{
                     </Link>
                     {/*播放动画*/}
                     <div className="container">
-                        <div className="lyrci_show" style={{display: this.state.lyricShow ? 'block': 'none'}} onClick={() => this.lyricShow()}>
-                            歌词
-                        </div>
+                        <pre className="lyric_show" style={{display: this.state.lyricShow ? 'block': 'none'}} onClick={() => this.lyricShow()}>
+                            {
+                                this.state.lyric.map((item,index) => {
+                                    return <p key={index} data-time={item.time.slice(1,6)} className={index === this.state.cur ? 'line_lyric show':'line_lyric'}>{item.lyric}</p>
+                                })
+                            }
+                        </pre>
                         <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState,display:this.state.lyricShow ? 'none':'inline-block'}} onClick={() => this.lyricShow()}/>
                     </div>
                     {/*播放进度条*/}
@@ -143,7 +220,7 @@ export default class Single extends React.Component{
         }
     }
 }
-
+// 播放进度
 function time_show(time){
     let minutes = Math.floor(time/1000/60);
     let seconds = Math.round(time/1000 - minutes*60);

@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import SingleSongTemp from '../singleSongTemp';
 
+// 歌单单曲列表展示
 export default class SingSong extends React.Component{
     constructor(props){
         super(props)
@@ -22,8 +23,8 @@ export default class SingSong extends React.Component{
                 this.props.source.map((item,index) => {
                     data = {
                         id: item.id,
-                        picUrl: item.album.picUrl,
-                        duration: item.duration
+                        picUrl: item.al.picUrl,
+                        duration: item.dt
                     };
                     path = {
                         pathname: 'single/',
