@@ -16,6 +16,7 @@
     /*overflow: hidden;*/
     overflow: scroll;
     /*box-sizing: border-box;*/
+    background: #efefef;
 }
 /*动画展示*/
 .single_music .container img{

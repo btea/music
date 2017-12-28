@@ -50,7 +50,8 @@ export default class Single extends React.Component{
                     if(time >= this.state.lyricTime[i] && time < this.state.lyricTime[i+1]){
                         this.setState({
                             cur: i
-                        })
+                        });
+                        this.refs.lyric.style.marginTop = - (i *20 - 130) +'px';
                     }
                 }
             }
@@ -175,7 +176,7 @@ export default class Single extends React.Component{
                     </Link>
                     {/*播放动画*/}
                     <div className="container">
-                        <pre className="lyric_show" style={{display: this.state.lyricShow ? 'block': 'none'}} onClick={() => this.lyricShow()}>
+                        <pre className="lyric_show" style={{display: this.state.lyricShow ? 'block': 'none'}} onClick={() => this.lyricShow()} ref='lyric'>
                             {
                                 this.state.lyric.map((item,index) => {
                                     return <p key={index} data-time={item.time.slice(1,6)} className={index === this.state.cur ? 'line_lyric show':'line_lyric'}>{item.lyric}</p>
