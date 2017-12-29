@@ -1,0 +1,32 @@
+.material-icons{
+    /*color: #6cf;*/
+    color: rgba(78,228,224,.5);
+    font-size: 40px;
+}
+.input_search i{
+    margin: 0 10px;
+}
+.input_search .search_word{
+    height: 30px;
+    vertical-align: top;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.4);
+    outline: none;
+    text-indent: 5px;
+    color: #6cf;
+    width: 70%;
+    text-align: center;
+}
+.search_index{
+    font-size: 12px;
+}
+.search_index .search_word_list{
+    margin: 10px 15px;
+}
+.search_index .single_word{
+    display: inline-block;
+    border-radius: 15px;
+    margin: 5px 10px;
+    padding: 5px;
+    border: 1px solid rgba(0,0,0,.4);
+}

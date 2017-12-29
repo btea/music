@@ -20,7 +20,7 @@ export default class Single extends React.Component{
             lyric: null, /*获取的歌词*/
             tlyric: null, /*需要翻译的歌词，翻译之后*/
             lyricTime: null, /*歌曲时间分布*/
-            marginTop: 130 /*歌词展示默认位置*/
+            marginTop: 235 /*歌词展示默认位置*/
         }
     }
 
@@ -41,6 +41,7 @@ export default class Single extends React.Component{
                 playState: false,
                 play: false,
                 played: this.state.duration
+                // marginTop: 235 // 赋值未改变 ????????
             })
 
         }
@@ -51,7 +52,7 @@ export default class Single extends React.Component{
                     if(time >= this.state.lyricTime[i] && time < this.state.lyricTime[i+1]){
                         this.setState({
                             cur: i,
-                            marginTop: 130 - i*20
+                            marginTop: 185 - i*30
                         });
                     }
                 }
@@ -154,13 +155,14 @@ export default class Single extends React.Component{
                 res.json().then(response => {
                     if(response.nolyric){
                         this.setState({
-                            lyric: '无歌词'
+                            lyric: [
+                                {
+                                    lyric: '纯音乐，请欣赏',
+                                    time: '[00:00:00]'
+                                }
+                            ]
                         })
                     }else{
-                        // this.setState({
-                        //     lyric: response.lrc.lyric,
-                        //     tlyric: response.tlyric.lyric
-                        // })
                         this.lyricFormat(response.lrc.lyric)
                     }
                 })
@@ -227,7 +229,7 @@ export default class Single extends React.Component{
 // 播放进度
 function time_show(time){
     let minutes = Math.floor(time/1000/60);
-    let seconds = Math.round(time/1000 - minutes*60);
+    let seconds = Math.floor(time/1000 - minutes*60);
     minutes = minutes >= 10 ? minutes : '0' + minutes;
     seconds = seconds >= 10 ? seconds : '0' + seconds;
     return minutes + ':' + seconds;

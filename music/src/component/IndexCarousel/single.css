@@ -1,4 +1,7 @@
-
+html,body{
+    height: 100%;
+    width: 100%;
+}
 
 .single_music{
     /*background: #efefef;*/
@@ -12,17 +15,27 @@
 .single_music .container{
     text-align: center;
     margin: 20px 0;
-    height: 300px;
-    /*overflow: hidden;*/
-    overflow: scroll;
+    /*height: 400px;*/
+    height: calc(100vh - 165px);
+    height: -moz-calc(100vh - 165px);
+    height: -webkit-calc(100vh - 165px);
+    overflow: hidden;
+    /*overflow: scroll;*/
     /*box-sizing: border-box;*/
     background: #efefef;
 }
 /*动画展示*/
 .single_music .container img{
-    margin: 75px auto;
-    width: 150px;
-    height: 150px;
+    /*margin: 100px auto;*/
+    position: relative;
+    top: calc(50% - 100px);
+    top: -webkit-calc(50% - 100px);
+    top: -moz-calc(50% - 100px);
+    /*margin-top: calc(50% - 100px);*/
+    /*margin-top: -moz-calc(50% - 100px);*/
+    /*margin-top: -webkit-calc(50% - 100px);*/
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     animation: roll 10s linear infinite;
     -webkit-animation: roll 10s linear infinite;
@@ -50,7 +63,7 @@
 /*歌词显示*/
 .single_music .container .lyric_show{
     /*height: 300px;*/
-    min-height: 300px;
+    min-height: 400px;
     width: 70%;
     margin: 0 auto;
     background: #efefef;
@@ -68,7 +81,8 @@
 .single_music .line_lyric{
     margin: 0;
     padding: 0;
-    height: 20px;
+    height: 30px;
+    word-break: break-all;
 }
 .single_music .line_lyric.show{
     color: #66ccff;
@@ -80,8 +94,11 @@
     color: rgba(78,228,224,.5);
     font-size: 40px;
 }
+/*播放控制管理*/
 footer.progress_bar{
-    position: relative;
+    position: fixed;
+    left: 0;
+    bottom: 20px;
     /*background: #000000;*/
     width: 100%;
     text-align: center;
@@ -128,7 +145,7 @@ footer.progress_bar{
 .rate .buffer{background: rgba(102,204,255,.5);}
 .rate .played{background: rgba(78,228,224,.5);}
 .progress_bar .played_time,.progress_bar .total_time{
-    margin-top: -3px;
+    margin-top: -4px;
     position: absolute;
     top: 4px;
     width: 32px;

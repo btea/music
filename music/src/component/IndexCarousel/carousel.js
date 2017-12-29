@@ -8,9 +8,7 @@ export default class CarouselTemplate extends React.Component{
     }
 
     // 获取歌单详细信息
-    songlist(e){
-        console.log(e);
-        console.log(this);
+    songList(){
         let listid = this.props.source.id;
         FetchData('type=playlist&search_type=1000&id=' + listid,'get').then(res => {
             res.json().then(response => {
@@ -33,7 +31,7 @@ export default class CarouselTemplate extends React.Component{
             }
         }
         return (
-            <div className="loop_block" data-id={source.id} style={styles} onClick={e => {this.songlist(e)}}>
+            <div className="loop_block" data-id={source.id} style={styles} onClick={() => {this.songList()}}>
                 <img className="cover" src={source.coverImgUrl} atl=""/>
                 <span className={this.props.describe}>{source.name}</span>
             </div>

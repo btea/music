@@ -5,6 +5,7 @@ import './index.css';
 import IndexCarousel from './containers/indexCarousel/carousel';
 import Search from './component/index';
 import Single from './component/IndexCarousel/single';
+import SearchIndex from './containers/searchIndex';
 
 // import registerServiceWorker from './registerServiceWorker';
 class Index extends React.Component{
@@ -21,6 +22,7 @@ class Index extends React.Component{
                     <Route exact path="/" component={Search}/>
                     <Route exact path="/" component={IndexCarousel}/>
                     <Route path="/single" component={Single}/>
+                    <Route path="/searchIndex" component={SearchIndex}/>
                 </div>
             </Router>
         )
@@ -31,3 +33,55 @@ ReactDOM.render(<Index />, document.getElementById('root'));
 
 // 作用？
 // registerServiceWorker();
+// https://api.imjad.cn/cloudmusic/?type=search&search_type=1002&s=木暮睦    //获取个人信息
+// 我的歌单id集合
+// [
+//     {
+//         name: '木暮睦喜欢的音乐',
+//         id: 59753871
+//     },
+//     {
+//         name: 'en',
+//         id: 2000385839
+//     },
+//     {
+//         name: 'bgm',
+//         id: 2000388786
+//     },
+//     {
+//         name: '妖尾',
+//         id: 820184907
+//     },
+//     {
+//         name: '古风',
+//         id: 480591861
+//     },
+//     {
+//         name: 'clannad',
+//         id: 467595782
+//     },
+//     {
+//         name: '古风集',
+//         id: 379919506
+//     },
+//     {
+//         name: '我的歌单',
+//         id: 363515658
+//     },
+//     {
+//         name: '[]',
+//         id: 159011281
+//     },
+//     {
+//         name: '洛天依作品集',
+//         id: 115559161
+//     },
+//     {
+//         name: '90回不去的慢慢回忆',
+//         id: 101953302
+//     },
+//     {
+//         name: '动漫',
+//         id: 96816234
+//     }
+// ]

@@ -9,8 +9,10 @@ export default class Search  extends React.Component{
     render(){
         return(
             <div className="search_words">
-                <input type="text" className="input_words" placeholder="请输入关键词"/>
-                <i className="search_icon">搜索</i>
+                {/*<input type="text" className="input_words" placeholder="请输入关键词"/>*/}
+                <Link to="searchIndex">
+                    <i className="material-icons">search</i>
+                </Link>
             </div>
         )
     }
