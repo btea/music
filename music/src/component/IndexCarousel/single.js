@@ -46,13 +46,16 @@ export default class Single extends React.Component{
 
         }
         if(this.state.lyricTime){
+            let container = this.refs.container;
+            let style = window.getComputedStyle(container,null) || container.currentStyle;
+            let h = style.height.split('px')[0];
             let time = time_show(this.state.played); //当前播放时间
             for(let i = 0; i < this.state.lyricTime.length; i++){
                 if(this.state.lyricTime[i] !== '00:00'){
                     if(time >= this.state.lyricTime[i] && time < this.state.lyricTime[i+1]){
                         this.setState({
                             cur: i,
-                            marginTop: 185 - i*30
+                            marginTop: h/2 - 15 - i*30
                         });
                     }
                 }
@@ -169,6 +172,7 @@ export default class Single extends React.Component{
             }
         );
     }
+
     render(){
         if(this.state.song && this.state.lyric){
             let playState = this.state.playState ? 'running':'paused';
@@ -180,7 +184,7 @@ export default class Single extends React.Component{
                         </header>
                     </Link>
                     {/*播放动画*/}
-                    <div className="container">
+                    <div className="container" ref='container'>
                         <pre className="lyric_show" style={{display: this.state.lyricShow ? 'block': 'none',marginTop: this.state.marginTop + 'px'}} onClick={() => this.lyricShow()} ref='lyric'>
                             {
                                 this.state.lyric.map((item,index) => {
