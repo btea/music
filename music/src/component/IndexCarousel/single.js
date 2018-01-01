@@ -20,6 +20,7 @@ export default class Single extends React.Component{
             lyric: null, /*获取的歌词*/
             tlyric: null, /*需要翻译的歌词，翻译之后*/
             lyricTime: null, /*歌曲时间分布*/
+            volume: 0.5, /*歌曲音量大小*/
             marginTop: 235 /*歌词展示默认位置*/
         }
     }
@@ -85,7 +86,6 @@ export default class Single extends React.Component{
                 targetVideo.pause();
             }
         })
-
     }
     // 定时播放
     timePlay(event){
@@ -138,6 +138,19 @@ export default class Single extends React.Component{
             });
         }
     }
+    // 歌曲音量大小设置
+    volume(event){
+        let target = event.target;
+        let audio = this.refs.audio;
+        let style = window.getComputedStyle(target,null) || target.currentStyle;
+        let width = style.width.split('px')[0];
+        let percentage = (event.pageX - 40) / width;
+        audio.volume = percentage;
+        this.setState({
+            volume: percentage
+        })
+    }
+
 
     componentWillMount(){
         let props = this.props;
@@ -172,19 +185,30 @@ export default class Single extends React.Component{
             }
         );
     }
-
+    componentDidUpdate(){
+        let target = this.refs.audio;
+        if(target){
+            target.volume = this.state.volume;
+        }
+    }
     render(){
         if(this.state.song && this.state.lyric){
             let playState = this.state.playState ? 'running':'paused';
             return(
                 <div className="single_music">
-                    <Link to="/">
-                        <header className="back">
+                    <header className="back">
+                        <Link to="/">
                             <i className="material-icons">arrow_back</i>
-                        </header>
-                    </Link>
+                        </Link>
+                    </header>
+
                     {/*播放动画*/}
                     <div className="container" ref='container'>
+                        <i className="material-icons volume" style={{display: this.state.lyricShow ? 'block': 'none'}}>volume_up</i>
+                        <div className="volume_bar" onClick={event => this.volume(event)} style={{display: this.state.lyricShow ? 'block': 'none'}}>
+                            <div className="current_volume"  style={{width: this.state.volume*100 + '%'}}></div>
+                            <div className="dot"></div>
+                        </div>
                         <pre className="lyric_show" style={{display: this.state.lyricShow ? 'block': 'none',marginTop: this.state.marginTop + 'px'}} onClick={() => this.lyricShow()} ref='lyric'>
                             {
                                 this.state.lyric.map((item,index) => {

@@ -14,7 +14,9 @@
     outline: none;
     text-indent: 5px;
     color: #6cf;
-    width: 66%;
+    width: calc(100% - 120px);
+    width: -moz-calc(100% - 120px);
+    width: -webkit-calc(100% - 120px);
     text-align: center;
 }
 .search_index{

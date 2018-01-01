@@ -23,7 +23,42 @@ html,body{
     /*overflow: scroll;*/
     /*box-sizing: border-box;*/
     background: #efefef;
+    position: relative;
 }
+/*音量条*/
+.single_music .container .volume{
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 20px;
+    margin: 5px 10px;
+}
+.single_music .container .volume_bar{
+    position: absolute;
+    left: 40px;
+    top: 0;
+    margin-top: 12px;
+    width: calc(100% - 60px);
+    width: -moz-calc(100% - 60px);
+    width: -webkit-calc(100% - 60px);
+    height: 6px;
+    background: #ffffff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.single_music .container .current_volume{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 6px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: rgba(78,228,224,.5);
+}
+
 /*动画展示*/
 .single_music .container img{
     /*margin: 100px auto;*/
