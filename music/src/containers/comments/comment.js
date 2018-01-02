@@ -6,9 +6,17 @@ export default class Comment extends React.Component{
     }
 
     render(){
-        let comment = this.props.commens;
-        console.log(comment);
+        let comment = this.props.comments;
         return(
+            if(comment){
+                
+            }else{
+                return(
+                    <div>
+                        <img src={require('../../images/loading.gif')} alt=""/>
+                    </div>
+                )
+            }
             <div>123</div>
         )
     }

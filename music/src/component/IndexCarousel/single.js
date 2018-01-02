@@ -314,7 +314,7 @@ export default class Single extends React.Component{
                         </footer>
                     </div>
                     <div className="comments_show">
-                        <Comment comments = {this.state.comments}/>
+                        <Comment comments={this.state.comments}/>
                     </div>
                 </div>
 
