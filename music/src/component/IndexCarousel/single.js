@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import FetchData from '../../fetch/fetch';
 import './single.css';
+import  Comment from '../../containers/comments/comment';
+
 
 export default class Single extends React.Component{
     constructor(props){
@@ -25,7 +27,8 @@ export default class Single extends React.Component{
             zIndex: false, /*显示歌词还是显示动画*/
             commentTotal: null, /*评论数*/
             comments: null, /*评论内容*/
-            favorite: false /*是否喜欢*/
+            favorite: false, /*是否喜欢*/
+            commentShow: false /*是否展示评论*/
         }
     }
 
@@ -156,7 +159,8 @@ export default class Single extends React.Component{
     }
 
     // 获取评论
-    comment(){
+    comment(event){
+        event.stopPropagation();
         let props = this.props;
         let state = props.location.state;
         let id = state.id;
@@ -165,7 +169,8 @@ export default class Single extends React.Component{
                 console.log(response);
                 this.setState({
                     commentTotal: response.total,
-                    comments: response
+                    comments: response,
+                    commentShow: !this.state.commentShow
                 })
             })
         })
@@ -236,23 +241,27 @@ export default class Single extends React.Component{
     }
     render(){
         if(this.state.song && this.state.lyric){
+            // 显示音乐播放界面
             let playState = this.state.playState ? 'running':'paused';
             return(
-                <div className="single_music">
-                    <header className="back">
-                        <Link to="/">
-                            <i className="material-icons">arrow_back</i>
-                        </Link>
-                    </header>
+                <div>
+                    <div className="single_music">
+                        <header className="back">
+                            <Link to="/">
+                                <i className="material-icons">arrow_back</i>
+                            </Link>
+                            <div className="name">{this.state.name}</div>
+                            <div className="arname">{this.state.arname}</div>
+                        </header>
 
-                    {/*播放动画*/}
-                    <div className="container" ref='container'>
-                        <i className="material-icons volume" style={{zIndex: this.state.lyricShow ? 1 : 0}}>volume_up</i>
-                        <div className="volume_bar" onClick={event => this.volume(event)} style={{zIndex: this.state.lyricShow ? 1 : 0}}>
-                            <div className="current_volume"  style={{width: this.state.volume*100 + '%'}}></div>
-                            <div className="dot"></div>
-                        </div>
-                        <div className="lyric" style={{zIndex: this.state.lyricShow ? 1 : 0}}>
+                        {/*播放动画*/}
+                        <div className="container" ref='container'>
+                            <i className="material-icons volume" style={{zIndex: this.state.lyricShow ? 1 : 0}}>volume_up</i>
+                            <div className="volume_bar" onClick={event => this.volume(event)} style={{zIndex: this.state.lyricShow ? 1 : 0}}>
+                                <div className="current_volume"  style={{width: this.state.volume*100 + '%'}}></div>
+                                <div className="dot"></div>
+                            </div>
+                            <div className="lyric" style={{zIndex: this.state.lyricShow ? 1 : 0}}>
                             <pre className="lyric_show" style={{top: this.state.top + 'px'}} onClick={() => this.lyricShow()} ref='lyric'>
                                 {
                                     this.state.lyric.map((item,index) => {
@@ -260,50 +269,55 @@ export default class Single extends React.Component{
                                     })
                                 }
                             </pre>
-                        </div>
-                        <div className="bg_animation" style={{zIndex:this.state.lyricShow ? 0 : 1}} onClick={() => this.lyricShow()}>
-                            <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState}} />
-                            <div className="download_dis_icon">
-                                <i className="material-icons" style={{display: this.state.favorite ? 'inline-block': 'none'}} onClick={(event) => this.favorite(event)}>favorite</i>
-                                <i className="material-icons" style={{display: this.state.favorite ? 'none' : 'inline-block'}} onClick={(event) => this.favorite(event)}>favorite_border</i>
-                                <i className="material-icons" onClick={(event) => this.download(event)}>arrow_downward<a ref="download"></a></i>
-                                <span className="comment">
-                                    <i className="material-icons" onClick={() => this.comment()}>message</i>
+                            </div>
+                            <div className="bg_animation" style={{zIndex:this.state.lyricShow ? 0 : 1}} onClick={() => this.lyricShow()}>
+                                <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState}} />
+                                <div className="download_dis_icon" style={{display: this.state.lyricShow ? 'none' : 'block'}}>
+                                    <i className="material-icons" style={{display: this.state.favorite ? 'inline-block': 'none'}} onClick={(event) => this.favorite(event)}>favorite</i>
+                                    <i className="material-icons" style={{display: this.state.favorite ? 'none' : 'inline-block'}} onClick={(event) => this.favorite(event)}>favorite_border</i>
+                                    <i className="material-icons" onClick={(event) => this.download(event)}>arrow_downward<a ref="download"></a></i>
+                                    <span className="comment">
+                                    <i className="material-icons" onClick={(event) => this.comment(event)}>message</i>
                                     <span className="total">{this.state.commentTotal > 999 ? '999+' : this.state.commentTotal > 99 ? '99+' : this.state.commentTotal}</span>
                                 </span>
-                                <i className="material-icons">more_vert</i>
+                                    <i className="material-icons">more_vert</i>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
+                        {/*播放进度条*/}
+                        <footer className="progress_bar">
+                            <span className="played_time">{time_show(this.state.played)}</span>
+                            <div className="rate" ref="pro_bar_w" onClick={(event) => this.timePlay(event)}>
+                                <div className="buffer" style={{width: this.state.buffer / this.state.duration * this.state.barWidth + 'px'}}>
+                                    {/*{time_show(this.state.buffer)}*/}
+                                </div>
+                                <div className="played"  style={{width: this.state.played / this.state.duration * this.state.barWidth + 'px'}}>
+                                </div>
+                            </div>
+                            <span className="total_time">{time_show(this.state.duration)}</span>
+                            <audio src={this.state.song.url} ref="audio" onTimeUpdate={(event) => this.progress(event)}>
+
+                            </audio>
+                            <div className="button_list">
+                                <div className="per">
+                                    <i className="material-icons">skip_previous</i>
+                                </div>
+                                <div className="play_pause" onClick={() => this.playStatus()}>
+                                    <i className="material-icons" style={{display: this.state.play ? 'block':'none'}}>pause</i>
+                                    <i className="material-icons" style={{display: this.state.play ? 'none':'block'}}>play_arrow</i>
+                                </div>
+                                <div className="next">
+                                    <i className="material-icons">skip_next</i>
+                                </div>
+                            </div>
+                        </footer>
                     </div>
-                    {/*播放进度条*/}
-                    <footer className="progress_bar">
-                        <span className="played_time">{time_show(this.state.played)}</span>
-                        <div className="rate" ref="pro_bar_w" onClick={(event) => this.timePlay(event)}>
-                            <div className="buffer" style={{width: this.state.buffer / this.state.duration * this.state.barWidth + 'px'}}>
-                                {/*{time_show(this.state.buffer)}*/}
-                            </div>
-                            <div className="played"  style={{width: this.state.played / this.state.duration * this.state.barWidth + 'px'}}>
-                            </div>
-                        </div>
-                        <span className="total_time">{time_show(this.state.duration)}</span>
-                        <audio src={this.state.song.url} ref="audio" onTimeUpdate={(event) => this.progress(event)}>
-
-                        </audio>
-                        <div className="button_list">
-                            <div className="per">
-                                <i className="material-icons">skip_previous</i>
-                            </div>
-                            <div className="play_pause" onClick={() => this.playStatus()}>
-                                <i className="material-icons" style={{display: this.state.play ? 'block':'none'}}>pause</i>
-                                <i className="material-icons" style={{display: this.state.play ? 'none':'block'}}>play_arrow</i>
-                            </div>
-                            <div className="next">
-                                <i className="material-icons">skip_next</i>
-                            </div>
-                        </div>
-                    </footer>
+                    <div className="comments_show">
+                        <Comment comments = {this.state.comments}/>
+                    </div>
                 </div>
+
             )
         }else{
             return <div>

@@ -3,6 +3,13 @@ html,body{
     width: 100%;
 }
 
+
+.comments_show{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
 .single_music{
     /*background: #efefef;*/
     position: relative;
@@ -11,6 +18,23 @@ html,body{
 .single_music .back{
     height: 40px;
     border-bottom: 1px solid #efefef;
+    position: relative;
+    font-size: 12px;
+}
+.single_music .back .name{
+    position: absolute;
+    left: 45px;
+    top: 3px;
+}
+.single_music .back .arname{
+    position: absolute;
+    left: 45px;
+    top: 20px;
+    -webkit-transform: scale(.8);
+    -moz-transform: scale(.8);
+    -ms-transform: scale(.8);
+    -o-transform: scale(.8);
+    transform: scale(.8);
 }
 .single_music .container{
     text-align: center;
@@ -73,7 +97,7 @@ html,body{
     font-size: 12px;
     position: absolute;
     top: -12px;
-    right: -15px;
+    right: 15px;
     background: #efefef;
     padding: 1px;
     -webkit-transform: scale(0.7);
