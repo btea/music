@@ -21,7 +21,11 @@ export default class Single extends React.Component{
             tlyric: null, /*需要翻译的歌词，翻译之后*/
             lyricTime: null, /*歌曲时间分布*/
             volume: 0.5, /*歌曲音量大小*/
-            marginTop: 235 /*歌词展示默认位置*/
+            // marginTop: 235, /*歌词展示默认位置*/
+            zIndex: false, /*显示歌词还是显示动画*/
+            commentTotal: null, /*评论数*/
+            comments: null, /*评论内容*/
+            favorite: false /*是否喜欢*/
         }
     }
 
@@ -56,7 +60,7 @@ export default class Single extends React.Component{
                     if(time >= this.state.lyricTime[i] && time < this.state.lyricTime[i+1]){
                         this.setState({
                             cur: i,
-                            marginTop: h/2 - 15 - i*30
+                            top: h/2 - 15 - i*30
                         });
                     }
                 }
@@ -89,7 +93,7 @@ export default class Single extends React.Component{
     }
     // 定时播放
     timePlay(event){
-        let target = event.target;
+        // let target = event.target;
         let audio = this.refs.audio;
         let percentage = (event.pageX - 37) / this.state.barWidth;
         audio.currentTime =  this.state.duration * percentage / 1000;
@@ -100,8 +104,7 @@ export default class Single extends React.Component{
     // 歌词显示/隐藏
     lyricShow(){
         this.setState({
-            lyricShow: !this.state.lyricShow,
-            playState: !this.state.playState
+            lyricShow: !this.state.lyricShow
         })
     }
 
@@ -109,8 +112,9 @@ export default class Single extends React.Component{
     // 歌词格式处理
     lyricFormat(lyric){
         if(lyric){
-            // 匹配时间(数组)
+            // 匹配时间(数组)(时间包含毫秒)
             let reg = new RegExp(/\[.{8,9}\]/);
+            let newReg = new RegExp(/\[.{5}\]/); //时间只包含分秒，包括冒号只有五位
             // newLyr(数组)(包含时间和歌词);
             let newLyr = lyric.split(/\n/);
             newLyr.splice(newLyr.length - 1,1);//删除最后一段多余  最后一段似乎可不删除？
@@ -151,6 +155,43 @@ export default class Single extends React.Component{
         })
     }
 
+    // 获取评论
+    comment(){
+        let props = this.props;
+        let state = props.location.state;
+        let id = state.id;
+        FetchData('type=comments&id='+id,'get').then(res => {
+            res.json().then(response => {
+                console.log(response);
+                this.setState({
+                    commentTotal: response.total,
+                    comments: response
+                })
+            })
+        })
+    }
+    // 是否标记喜欢
+    favorite(event){
+        event.preventDefault();
+        event.stopPropagation();
+        // let target = event.target;
+        this.setState({
+            favorite: !this.state.favorite
+        })
+    }
+    // 下载
+    download(event){
+        event.preventDefault();
+        event.stopPropagation();
+        let a = this.refs.download;
+        a.setAttribute('href',this.state.song.url);
+        a.setAttribute('download',this.state.name + '.mp3');
+        // console.log(a.onclick);
+        // a.onclick();
+        console.log(a);
+    }
+
+
 
     componentWillMount(){
         let props = this.props;
@@ -160,7 +201,9 @@ export default class Single extends React.Component{
                 res.json().then(response => {
                     this.setState({
                         song: response.data[0],
-                        duration: state.duration
+                        duration: state.duration,
+                        name: state.name, /*歌名*/
+                        arname: state.arname /*歌手名*/
                     });
                 })
             }
@@ -204,19 +247,34 @@ export default class Single extends React.Component{
 
                     {/*播放动画*/}
                     <div className="container" ref='container'>
-                        <i className="material-icons volume" style={{display: this.state.lyricShow ? 'block': 'none'}}>volume_up</i>
-                        <div className="volume_bar" onClick={event => this.volume(event)} style={{display: this.state.lyricShow ? 'block': 'none'}}>
+                        <i className="material-icons volume" style={{zIndex: this.state.lyricShow ? 1 : 0}}>volume_up</i>
+                        <div className="volume_bar" onClick={event => this.volume(event)} style={{zIndex: this.state.lyricShow ? 1 : 0}}>
                             <div className="current_volume"  style={{width: this.state.volume*100 + '%'}}></div>
                             <div className="dot"></div>
                         </div>
-                        <pre className="lyric_show" style={{display: this.state.lyricShow ? 'block': 'none',marginTop: this.state.marginTop + 'px'}} onClick={() => this.lyricShow()} ref='lyric'>
-                            {
-                                this.state.lyric.map((item,index) => {
-                                    return <p key={index} data-time={item.time.slice(1,6)} className={index === this.state.cur ? 'line_lyric show':'line_lyric'}>{item.lyric}</p>
-                                })
-                            }
-                        </pre>
-                        <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState,display:this.state.lyricShow ? 'none':'inline-block'}} onClick={() => this.lyricShow()}/>
+                        <div className="lyric" style={{zIndex: this.state.lyricShow ? 1 : 0}}>
+                            <pre className="lyric_show" style={{top: this.state.top + 'px'}} onClick={() => this.lyricShow()} ref='lyric'>
+                                {
+                                    this.state.lyric.map((item,index) => {
+                                        return <p key={index} data-time={item.time.slice(1,6)} className={index === this.state.cur ? 'line_lyric show':'line_lyric'}>{item.lyric}</p>
+                                    })
+                                }
+                            </pre>
+                        </div>
+                        <div className="bg_animation" style={{zIndex:this.state.lyricShow ? 0 : 1}} onClick={() => this.lyricShow()}>
+                            <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState}} />
+                            <div className="download_dis_icon">
+                                <i className="material-icons" style={{display: this.state.favorite ? 'inline-block': 'none'}} onClick={(event) => this.favorite(event)}>favorite</i>
+                                <i className="material-icons" style={{display: this.state.favorite ? 'none' : 'inline-block'}} onClick={(event) => this.favorite(event)}>favorite_border</i>
+                                <i className="material-icons" onClick={(event) => this.download(event)}>arrow_downward<a ref="download"></a></i>
+                                <span className="comment">
+                                    <i className="material-icons" onClick={() => this.comment()}>message</i>
+                                    <span className="total">{this.state.commentTotal > 999 ? '999+' : this.state.commentTotal > 99 ? '99+' : this.state.commentTotal}</span>
+                                </span>
+                                <i className="material-icons">more_vert</i>
+                            </div>
+                        </div>
+
                     </div>
                     {/*播放进度条*/}
                     <footer className="progress_bar">

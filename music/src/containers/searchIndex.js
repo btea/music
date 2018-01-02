@@ -9,7 +9,7 @@ export default class SearchIndex extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            words: ['红昭愿','诀别诗','天行九歌','牵丝戏','不谓侠','明月天涯','我的世界','青丝','大浪淘沙'],
+            words: ['红昭愿','诀别诗','天行九歌','牵丝戏','不谓侠','明月天涯','我的世界','青丝','大浪淘沙','九九八十一','换世奇恋','拂雪','霜雪千年','烽火入冬来'],
             wordShow: true,
             songList: null
         }

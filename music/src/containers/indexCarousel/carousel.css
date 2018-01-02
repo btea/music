@@ -77,3 +77,9 @@ ul,li{list-style: none;margin: 0;padding: 0;}
     float: left;
     margin-left: 3px;
 }
+.playlist_show .single_song .className{
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

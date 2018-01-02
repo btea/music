@@ -25,6 +25,63 @@ html,body{
     background: #efefef;
     position: relative;
 }
+.single_music .container .lyric{
+    position: absolute;
+    height: 90%;
+    width: 70%;
+    margin: 5% 15%;
+    box-sizing: border-box;
+    background: #efefef;
+    overflow: hidden;
+}
+
+.single_music .container .bg_animation{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #efefef;
+}
+/*评论下载小图标*/
+.single_music .container .bg_animation .download_dis_icon{
+    position: absolute;
+    left: 0;
+    bottom: 5px;
+    height: 25px;
+    text-align: center;
+    width: 100%;
+    padding: 0 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.single_music .container .bg_animation .download_dis_icon i{
+    font-size: 25px;
+    margin-left: calc(12.5% - 12.5px);
+    margin-left: -moz-calc(12.5% - 12.5px);
+    margin-left: -webkit-calc(12.5% - 12.5px);
+    margin-right: calc(12.5% - 12.5px);
+    margin-right: -moz-calc(12.5% - 12.5px);
+    margin-right: -webkit-calc(12.5% - 12.5px);
+}
+/*评论图标*/
+.bg_animation .download_dis_icon .comment{
+    position: relative;
+}
+.bg_animation .download_dis_icon .comment .total{
+    font-size: 12px;
+    position: absolute;
+    top: -12px;
+    right: -15px;
+    background: #efefef;
+    padding: 1px;
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7);
+    transform: scale(0.7);
+}
 /*音量条*/
 .single_music .container .volume{
     position: absolute;
@@ -99,7 +156,7 @@ html,body{
 .single_music .container .lyric_show{
     /*height: 300px;*/
     min-height: 400px;
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
     background: #efefef;
     opacity: .5;
@@ -112,6 +169,13 @@ html,body{
     -ms-transition: all .8s;
     -o-transition: all .8s;
     transition: all .8s;
+    position: absolute;
+    top: calc(50% - 15px);
+    top: -moz-calc(50% - 15px);
+    top: -webkit-calc(50% - 15px);
+    /*margin-top: calc(50% - 15px);*/
+    /*margin-top: -moz-calc(50% - 15px);*/
+    /*margin-top: -webkit-calc(50% - 15px);*/
 }
 .single_music .line_lyric{
     margin: 0;

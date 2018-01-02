@@ -18,13 +18,16 @@ export default class SingSong extends React.Component{
 
     render(){
         if(this.props.source){
+            console.log(this.props.source);
             let data,path;
             return(
                 this.props.source.map((item,index) => {
                     data = {
                         id: item.id,
                         picUrl: item.al.picUrl,
-                        duration: item.dt
+                        duration: item.dt,
+                        name: item.name,
+                        arname: item.ar[0].name
                     };
                     path = {
                         pathname: 'single/',

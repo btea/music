@@ -32,7 +32,7 @@ export default class CarouselTemplate extends React.Component{
         }
         return (
             <div className="loop_block" data-id={source.id} style={styles} onClick={() => {this.songList()}}>
-                <img className="cover" src={source.coverImgUrl} atl=""/>
+                <img className="cover" src={source.coverImgUrl} alt=""/>
                 <span className={this.props.describe}>{source.name}</span>
             </div>
         )
