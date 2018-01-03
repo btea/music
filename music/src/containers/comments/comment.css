@@ -1,0 +1,89 @@
+/*头像*/
+.comment_list{
+    font-size: 12px;
+    background: #ffffff;
+    position: relative;
+    z-index: 10;
+}
+.comment_list i.back{
+    font-size: 30px;
+    margin: 5px;
+}
+.comment_list .header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 40px;
+    z-index: 11;
+    background: #ffffff;
+    width: 100%;
+}
+.comment_list .header span{
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    text-align: center;
+    /*line-height: 40px;*/
+    /*vertical-align: middle;*/
+}
+
+.comment_list .hot_comment_title{
+    margin-top: 40px;
+}
+
+
+.comment_list .single_comment .avatar img{
+    width: 45px;
+    height: 45px;
+    /*overflow: hidden;*/
+    border-radius: 50%;
+    margin: 5px 10px;
+}
+.single_comment{
+    padding: 5px 10px;
+    /*background: rgba(0,0,0,.2);*/
+    border-top: 1px solid rgba(0,0,0,.5);
+    margin-top: -1px;
+}
+.single_comment:after,.single_comment .name_time:after{
+    content: "";
+    display: block;
+    overflow: hidden;
+    clear: both;
+    height: 0;
+    line-height: 0;
+}
+.single_comment .avatar,.single_comment .content{float: left;}
+.single_comment .content{
+    width: calc(100% - 65px);
+    width: -moz-calc(100% - 65px);
+    width: -webkit-calc(100% - 65px);
+}
+
+.single_comment .name_time .nickname_time{
+    float: left;
+}
+.single_comment .name_time .likedCount{
+    float: right;
+}
+.single_comment .name_time .likedCount i{
+    font-size: 16px;
+}
+.single_comment .name_time .nickname{color: #00000e;}
+.single_comment .name_time .release_time{
+    -webkit-transform: scale(.8);
+    -moz-transform: scale(.8);
+    -ms-transform: scale(.8);
+    -o-transform: scale(.8);
+    transform: scale(.8);
+    margin-left: -13px;
+}
+.single_comment .content_des,.single_comment .replay{
+    margin: 8px 0;
+}
+.single_comment .replay{
+    background: rgba(0,0,0,.1);
+    padding: 5px;
+    box-sizing: border-box;
+}

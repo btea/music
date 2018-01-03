@@ -159,8 +159,7 @@ export default class Single extends React.Component{
     }
 
     // 获取评论
-    comment(event){
-        event.stopPropagation();
+    getComment(){
         let props = this.props;
         let state = props.location.state;
         let id = state.id;
@@ -169,12 +168,25 @@ export default class Single extends React.Component{
                 console.log(response);
                 this.setState({
                     commentTotal: response.total,
-                    comments: response,
-                    commentShow: !this.state.commentShow
+                    comments: response
                 })
             })
         })
     }
+    // 评论是否显示
+    comment(event){
+        event.stopPropagation();
+        this.setState({
+            commentShow: !this.state.commentShow
+        })
+    }
+    //是否显示评论及状态获取
+    commentStatus(){
+        this.setState({
+            commentShow: !this.state.commentShow
+        })
+    }
+
     // 是否标记喜欢
     favorite(event){
         event.preventDefault();
@@ -229,6 +241,8 @@ export default class Single extends React.Component{
                     }else{
                         this.lyricFormat(response.lrc.lyric)
                     }
+                    // 获取歌词之后再获取评论
+                    this.getComment();
                 })
             }
         );
@@ -313,11 +327,10 @@ export default class Single extends React.Component{
                             </div>
                         </footer>
                     </div>
-                    <div className="comments_show">
-                        <Comment comments={this.state.comments}/>
+                    <div className="comments_show" style={{display: this.state.commentShow ? 'block' : 'none'}}>
+                        <Comment comments={this.state.comments} commentState={this.commentStatus.bind(this)} id={this.props.location.state.id}/>
                     </div>
                 </div>
-
             )
         }else{
             return <div>
