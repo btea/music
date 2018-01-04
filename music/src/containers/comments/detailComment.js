@@ -7,52 +7,59 @@ export default class DetailComment extends React.Component{
         super(props);
         this.state = {
             comments: this.props.comments,
-            hotComments: this.props.comments.hotComments,
-            commentsList: this.props.comments.comments,
-            id: this.props.id, /*音乐id*/
-            offset: 0,  /*评论加载页数*/
-            isobtain: true /*是否允许继续加载*/
+            hotComments: this.props.comments.hotComments, /*热评*/
+            commentList: this.props.comments.comments, /*所有评论*/
+            id: this.props.id,
+            offset: 20, /*每页评论的数量*/
+            page: 0, /*页数*/
+            isMore: true, /*是否还有更多评论*/
+            isObtain: false, /**是否继续加载**/
+            loading: false /* 加载动画*/
         }
     }
 
     getComment(){
-        if(this.state.isobtain){
-            FetchData('type=comments&id='+this.state.id + '&offset=' + this.state.offset,'get').then(res => {
-                this.setState({
-                    isobtain: !this.state.isobtain
-                })
-                res.json().then(response => {
-                    this.setState({
-                        commentsList: this.state.commentsList.concat(response.comments),
-                        isobtain: !this.state.isobtain
+        if(!this.state.isObtain){
+            this.setState({
+                page: this.state.page + 1,
+                isObtain: !this.state.isObtain,
+                loading: !this.state.loading
+            },() => {
+                if(this.state.isMore){
+                    FetchData('type=comments&id='+this.state.id + '&limit=20&offset=' + this.state.offset * this.state.page,'get').then(res => {
+                        res.json().then(response => {
+                            this.setState({
+                                commentList: this.state.commentList.concat(response.comments),
+                                isMore: response.more,
+                                isObtain: !this.state.isObtain,
+                                loading: !this.state.loading
+                            })
+                        })
                     })
-                })
+                }else{
+                    alert('已没有更多评论')
+                }
             })
         }
+
     }
 
-    componentDidUpdate(){
+    componentDidMount(){
         window.addEventListener('scroll',() => {
             let target = this.refs.comment_list;
-            let style = window.getComputedStyle(target,null) || target.currentStyle;
-            let height = +style.height.split('px')[0];
-            if(style.height !== 'auto'){
-                let viewHeight = document.body.clientHeight;
+            if(target){
+                let style = window.getComputedStyle(target,null) || target.currentStyle;
+                let height = +style.height.split('px')[0];
+                let viewHeight = document.documentElement.clientHeight;
                 let scrollTop = document.documentElement.scrollTop;
-                if(height - scrollTop - viewHeight   < 50 ){
-                    // 发起请求
-                    this.setState({
-                        offset: this.state.offset + 1
-                    },() => {
-                        this.getComment();
-                    })
+                // 最大值40
+                if(scrollTop + viewHeight - height >= 10){
+                    this.getComment();
                 }
-                console.log(height);
-                console.log(scrollTop);
-                console.log(viewHeight);
             }
-        });
 
+            // console.log(height,viewHeight,scrollTop);
+        })
     }
 
     render(){
@@ -74,11 +81,15 @@ export default class DetailComment extends React.Component{
                 <p className="new_comment">最新评论</p>
                 <ul className="all_comment">
                     {
-                        this.state.commentsList.map((item,index) => {
+                        this.state.commentList.map((item,index) => {
                             return <SingleComment info={item} key={index}/>
                         })
                     }
                 </ul>
+                <div className="refresh" style={{display: this.state.loading ? 'block' : 'none'}}>
+                    <i className="material-icons">refresh</i>
+                </div>
+                {/*<button onClick={() => this.getComment()}>加载更多</button>*/}
             </div>
         )
     }

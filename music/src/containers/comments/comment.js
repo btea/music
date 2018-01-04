@@ -17,7 +17,6 @@ export default class Comment extends React.Component{
                 return(
                     <DetailComment comments={comment} commentStateChange={() => this.props.commentState()} id={this.props.id}/>
                 )
-
             }else{
                 return(
                     <div>
