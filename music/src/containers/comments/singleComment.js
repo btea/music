@@ -6,6 +6,9 @@ export  default class SingleComment extends React.Component{
     }
     render(){
         let inf = this.props.info;
+        // // let content = inf.content.replace('\n','</br>');
+        // console.log(inf.content);
+        // console.log(content);
         return(
             <li className="single_comment" id={inf.user.userId}>
                 <div className="avatar">

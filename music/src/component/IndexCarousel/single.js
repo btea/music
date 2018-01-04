@@ -163,7 +163,7 @@ export default class Single extends React.Component{
         let props = this.props;
         let state = props.location.state;
         let id = state.id;
-        FetchData('type=comments&id='+id,'get').then(res => {
+        FetchData('type=comments&id='+id + '&limit=20&offset=0','get').then(res => {
             res.json().then(response => {
                 console.log(response);
                 this.setState({
