@@ -122,12 +122,12 @@ export default class Single extends React.Component{
             let newLyr = lyric.split(/\n/);
             newLyr.splice(newLyr.length - 1,1);//删除最后一段多余  最后一段似乎可不删除？
             // 匹配了时间之后新的歌词
+            // 处理时间只有五位的歌词
             for(let i = 0; i < newLyr.length; i++){
                 if(newReg.test(newLyr[i])){
-                    newLyr[i] = '[' + newLyr[i].split(/\[|\]/)[1] + '.00]'
+                    newLyr[i] = '[' + newLyr[i].split(/\[|\]/)[1] + '.00]' + newLyr[i].split(/\[|\]/)[2]
                 }
             }
-            console.log(newLyr)
             for(let i = 0; i < newLyr.length; i++){
                 if(!reg.test(newLyr[i])){
                     newLyr[i] = '[00:00:00]' + newLyr[i];
