@@ -25,7 +25,7 @@
     height: 40px;
     text-align: center;
     /*line-height: 40px;*/
-    /*vertical-align: middle;*/
+    vertical-align: middle;
 }
 
 .comment_list .hot_comment_title{
@@ -65,7 +65,15 @@
     float: left;
 }
 .single_comment .name_time .likedCount{
+    height: 16px;
     float: right;
+}
+.single_comment .name_time .likedCount .like_count{
+    height: 16px;
+    font-size: 12px;
+    font-style: normal;
+    vertical-align: top;
+    margin-right: 3px;
 }
 .single_comment .name_time .likedCount i{
     font-size: 16px;
@@ -86,4 +94,108 @@
     background: rgba(0,0,0,.1);
     padding: 5px;
     box-sizing: border-box;
+}
+
+/*加载更多*/
+.refresh{text-align: center;}
+.refresh i{
+    -webkit-animation: refresh 1s linear infinite;
+    -o-animation: refresh 1s linear infinite;
+    animation: refresh 1s linear infinite;
+}
+@keyframes refresh {
+    0%{
+        -webkit-transform: rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100%{
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes refresh {
+    0%{
+        -webkit-transform: rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100%{
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-khtml-keyframes refresh {
+    0%{
+        -webkit-transform: rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100%{
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes refresh {
+    0%{
+        -webkit-transform: rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100%{
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-ms-keyframes refresh {
+    0%{
+        -webkit-transform: rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100%{
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes refresh {
+    0%{
+        -webkit-transform: rotate(0);
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100%{
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
 }

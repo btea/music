@@ -21,7 +21,7 @@ export  default class SingleComment extends React.Component{
                             <p className="release_time">{new Date(inf.time).toLocaleString()}</p>
                         </div>
                         <p className="likedCount">
-                            {inf.likedCount ? inf.likedCount : ''}
+                            <i className="like_count">{inf.likedCount ? inf.likedCount : ''}</i>
                             <i className="material-icons">thumb_up</i>
                         </p>
                     </div>
