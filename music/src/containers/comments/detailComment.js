@@ -47,14 +47,17 @@ export default class DetailComment extends React.Component{
     componentDidMount(){
         window.addEventListener('scroll',() => {
             let target = this.refs.comment_list;
-            let style = window.getComputedStyle(target,null) || target.currentStyle;
-            let height = +style.height.split('px')[0];
-            let viewHeight = document.documentElement.clientHeight;
-            let scrollTop = document.documentElement.scrollTop;
-            // 最大值40
-            if(scrollTop + viewHeight - height >= 10){
-                this.getComment();
+            if(target){
+                let style = window.getComputedStyle(target,null) || target.currentStyle;
+                let height = +style.height.split('px')[0];
+                let viewHeight = document.documentElement.clientHeight;
+                let scrollTop = document.documentElement.scrollTop;
+                // 最大值40
+                if(scrollTop + viewHeight - height >= 10){
+                    this.getComment();
+                }
             }
+
             // console.log(height,viewHeight,scrollTop);
         })
     }

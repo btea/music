@@ -117,16 +117,22 @@ export default class Single extends React.Component{
         if(lyric){
             // 匹配时间(数组)(时间包含毫秒)
             let reg = new RegExp(/\[.{8,9}\]/);
-            let newReg = new RegExp(/\[.{5}\]/); //时间只包含分秒，包括冒号只有五位
+            let newReg = new RegExp(/\[.{2}\:.{2}\]/); //时间只包含分秒，包括冒号只有五位
             // newLyr(数组)(包含时间和歌词);
             let newLyr = lyric.split(/\n/);
             newLyr.splice(newLyr.length - 1,1);//删除最后一段多余  最后一段似乎可不删除？
+            // 匹配了时间之后新的歌词
+            for(let i = 0; i < newLyr.length; i++){
+                if(newReg.test(newLyr[i])){
+                    newLyr[i] = '[' + newLyr[i].split(/\[|\]/)[1] + '.00]'
+                }
+            }
+            console.log(newLyr)
             for(let i = 0; i < newLyr.length; i++){
                 if(!reg.test(newLyr[i])){
                     newLyr[i] = '[00:00:00]' + newLyr[i];
                 }
             }
-            // 匹配了时间之后新的歌词
             let newLyric = newLyr.join('\n');
             let lastTime = newLyric.match(/\[.{8,9}\]/g);
             let lastLyric = newLyric.split(reg);
