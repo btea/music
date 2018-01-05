@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 export default class SingleSongTemp extends React.Component{
     constructor(props){
@@ -8,16 +9,6 @@ export default class SingleSongTemp extends React.Component{
         // lazyload
         // 问题????
         let ele = this.refs.cover_img;
-        // window.addEventListener('scroll',function(){
-        //     let getBounding = ele.getBoundingClientRect();
-        //     let height = window.screen.height;
-        //     if(getBounding.top < height){
-        //         let img = ele.querySelector('.picUrl');
-        //         if(!img.getAttribute('src')){
-        //             img.setAttribute('src',img.getAttribute('data-src'));
-        //         }
-        //     }
-        // })
 
 
         // 简单的节流函数
@@ -59,6 +50,7 @@ export default class SingleSongTemp extends React.Component{
     render(){
         let item = this.props.item;
         let index = this.props.index;
+        let mvid = item.mv;
         return(
             <li className="single_song"  data-id={item.id} ref="cover_img">
                 <div className="img_picUrl">
@@ -67,7 +59,9 @@ export default class SingleSongTemp extends React.Component{
                 <div className="right">
                     <div className="name">
                         <div className="song_name">{item.name}</div>
-                        <span className="mv" style={{display: item.mv ? 'block' : 'none'}} data-mv={item.mv || ''}>MV</span>
+                        <span className="mv" style={{display: item.mv ? 'block' : 'none'}} data-mv={item.mv || ''}>
+                            <Link to={"/mv/" + mvid}>MV</Link>
+                        </span>
                     </div>
                     <div className="className">{item.ar[0].name}</div>
                 </div>

@@ -6,6 +6,7 @@ import IndexCarousel from './containers/indexCarousel/carousel';
 import Search from './component/index';
 import Single from './component/IndexCarousel/single';
 import SearchIndex from './containers/searchIndex';
+import MV from './containers/mv/mvIndex';
 import './iconfont/material-icons.css';
 
 // import registerServiceWorker from './registerServiceWorker';
@@ -24,6 +25,7 @@ class Index extends React.Component{
                     <Route exact path="/" component={IndexCarousel}/>
                     <Route path="/single" component={Single}/>
                     <Route path="/searchIndex" component={SearchIndex}/>
+                    <Route path="/mv/:mvid" component={MV}/>
                 </div>
             </Router>
         )
