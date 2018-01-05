@@ -6,6 +6,7 @@ import IndexCarousel from './containers/indexCarousel/carousel';
 import Search from './component/index';
 import Single from './component/IndexCarousel/single';
 import SearchIndex from './containers/searchIndex';
+import './iconfont/material-icons.css';
 
 // import registerServiceWorker from './registerServiceWorker';
 class Index extends React.Component{
