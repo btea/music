@@ -1,0 +1,27 @@
+.getCover_Img{
+    width: 100%;
+    height: 235px;
+    position: relative;
+}
+.getCover_Img img{
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+}
+.getCover_Img video{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.getCover_Img .progress{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    background: rgba(255,255,255,.4);
+    width: 100%;
+}
