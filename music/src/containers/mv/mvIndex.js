@@ -48,6 +48,11 @@ export default class MV extends React.Component{
                             |
                             <span className="play">播放: {playCOunt(info.playCount)}</span>
                         </div>
+                        <div className="operator">
+                            <i className="material-icons">thumb_up</i>
+                            <i className="material-icons">comment</i>
+
+                        </div>
                     </div>
                 </div>
 
