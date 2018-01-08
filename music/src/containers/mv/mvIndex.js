@@ -39,8 +39,8 @@ export default class MV extends React.Component{
                     </div>
                     <div className="name_time_list">
                         <div className="mv_name">
-                            <span>MV</span>
-                            <span>{info.name}</span>
+                            <span className="mv">MV</span>
+                            <span className="name">{info.name}</span>
                         </div>
                         <div className="singer">歌手: {nameList(info.artists)}</div>
                         <div className="time_play">

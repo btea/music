@@ -1,3 +1,4 @@
+.mv_info{font-size: 12px;}
 .mv_index{
     position: relative;
     width: 100%;
@@ -21,4 +22,14 @@
     height: 3px;
     width: 100%;
     background: rgba(255,255,255,.4);
+}
+.name_time_list{
+    margin: 10px;
+}
+.name_time_list .mv{
+    border: 1px solid #000000;
+    margin-right: 15px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
