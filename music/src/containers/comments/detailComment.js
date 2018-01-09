@@ -14,7 +14,8 @@ export default class DetailComment extends React.Component{
             page: 0, /*页数*/
             isMore: true, /*是否还有更多评论*/
             isObtain: false, /**是否继续加载**/
-            loading: false /* 加载动画*/
+            loading: false, /* 加载动画*/
+            bgImg: this.props.bgImg /*封面*/
         }
     }
 
@@ -28,6 +29,7 @@ export default class DetailComment extends React.Component{
                 if(this.state.isMore){
                     FetchData('type=comments&id='+this.state.id + '&limit=20&offset=' + this.state.offset * this.state.page,'get').then(res => {
                         res.json().then(response => {
+                            console.log(response);
                             this.setState({
                                 commentList: this.state.commentList.concat(response.comments),
                                 isMore: response.more,
@@ -65,7 +67,7 @@ export default class DetailComment extends React.Component{
     render(){
         let comment = this.state.comments;
         return(
-            <div className="comment_list" ref="comment_list">
+            <div className="comment_list" ref="comment_list" style={{backgroundImage: 'url(' + this.state.bgImg + ')'}}>
                 <div className="header">
                     <i className="material-icons back" onClick={() => this.props.commentStateChange()}>arrow_back</i>
                     <span>评论({comment.total})</span>

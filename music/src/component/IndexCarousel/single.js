@@ -334,7 +334,7 @@ export default class Single extends React.Component{
                         </footer>
                     </div>
                     <div className="comments_show" style={{display: this.state.commentShow ? 'block' : 'none'}}>
-                        <Comment comments={this.state.comments} commentState={this.commentStatus.bind(this)} id={this.props.location.state.id}/>
+                        <Comment comments={this.state.comments} commentState={this.commentStatus.bind(this)} id={this.props.location.state.id} bgImg={this.props.location.state.picUrl}/>
                     </div>
                 </div>
             )

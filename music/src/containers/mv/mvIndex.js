@@ -34,6 +34,7 @@ export default class MV extends React.Component{
                         <div className="cover_img">
                             <img src={info.cover} alt=""/>
                         </div>
+                        <iframe src={info.brs[240]} frameborder="0"></iframe>
                         <video src={info.brs[240]}  width="100%" height="235"></video>
                         <div className="progress"></div>
                     </div>
@@ -46,7 +47,7 @@ export default class MV extends React.Component{
                         <div className="time_play">
                             <span className="time">发布: {info.publishTime}</span>
                             |
-                            <span className="play">播放: {playCOunt(info.playCount)}</span>
+                            <span className="play">播放: {playCount(info.playCount)}</span>
                         </div>
                         <div className="operator">
                             <i className="material-icons">thumb_up</i>
@@ -66,7 +67,7 @@ export default class MV extends React.Component{
         }
     }
 }
-function playCOunt(count){
+function playCount(count){
     let counts = '';
     if(count < 10000){
         counts = count;

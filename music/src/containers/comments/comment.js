@@ -15,7 +15,7 @@ export default class Comment extends React.Component{
         let comment = this.props.comments;
             if(comment){
                 return(
-                    <DetailComment comments={comment} commentStateChange={() => this.props.commentState()} id={this.props.id}/>
+                    <DetailComment comments={comment} commentStateChange={() => this.props.commentState()} id={this.props.id} bgImg={this.props.bgImg}/>
                 )
             }else{
                 return(
