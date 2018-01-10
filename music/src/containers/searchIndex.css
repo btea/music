@@ -13,7 +13,8 @@
     border-bottom: 1px solid rgba(0,0,0,.4);
     outline: none;
     text-indent: 5px;
-    color: #6cf;
+    /*color: #6cf; /*文字和光标均变为设置的颜色*/
+    caret-color: #6cf; /*只有光标会变颜色，输入框内文字不会变色*/
     width: calc(100% - 120px);
     width: -moz-calc(100% - 120px);
     width: -webkit-calc(100% - 120px);
