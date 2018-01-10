@@ -39,7 +39,7 @@ export default class SingleSongTemp extends React.Component{
             if(getBounding.top < height){
                 let img = ele.querySelector('.picUrl');
                 if(!img.getAttribute('src')){
-                    img.setAttribute('src',img.getAttribute('data-src'));
+                    img.setAttribute('src',img.dataset.src);
                 }
             }
         }

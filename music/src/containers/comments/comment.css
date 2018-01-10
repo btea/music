@@ -5,8 +5,8 @@
     position: relative;
     z-index: 10;
     /*background: url("../../images/bg.jpg");*/
-    -webkit-background-size: 120% 100%;
-    background-size: 120% 100%;
+    -webkit-background-size: cover;
+    background-size: cover;
     background-position: center center;
     background-attachment: fixed;
     background-repeat:no-repeat;

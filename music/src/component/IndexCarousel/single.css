@@ -49,6 +49,18 @@ html,body{
     background: #efefef;
     position: relative;
 }
+/*背景模糊图片*/
+/*.single_music .container .bg_filter{*/
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*top: 0;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*-ms-filter: blur(3px);*/
+    /*filter: blur(3px);*/
+    /*border-radius: 0;*/
+    /*z-index: 2;*/
+/*}*/
 .single_music .container .lyric{
     position: absolute;
     height: 90%;
@@ -204,8 +216,10 @@ html,body{
 .single_music .line_lyric{
     margin: 0;
     padding: 0;
-    height: 30px;
-    word-break: break-all;
+    min-height: 30px;
+    line-height: 20px;
+    text-align: center;
+    width: 100%;
 }
 .single_music .line_lyric.show{
     color: #66ccff;

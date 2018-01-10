@@ -28,7 +28,8 @@ export default class Single extends React.Component{
             commentTotal: null, /*评论数*/
             comments: null, /*评论内容*/
             favorite: false, /*是否喜欢*/
-            commentShow: false /*是否展示评论*/
+            commentShow: false, /*是否展示评论*/
+            startTop: [] /*存放歌词每一行的滚动高度*/
         }
     }
 
@@ -63,7 +64,7 @@ export default class Single extends React.Component{
                     if(time >= this.state.lyricTime[i] && time < this.state.lyricTime[i+1]){
                         this.setState({
                             cur: i,
-                            top: h/2 - 15 - i*30
+                            top: h/2 - 15 - this.totalTop(i)
                         });
                     }
                 }
@@ -72,7 +73,7 @@ export default class Single extends React.Component{
             let p = document.querySelectorAll('.lyric_show p');
             let lyricTime = [];
             for(let  i = 0; i < p.length; i++){
-                lyricTime.push(p[i].getAttribute('data-time'));
+                lyricTime.push(p[i].dataset.time);
             }
             this.setState({
                 lyricTime: lyricTime
@@ -80,11 +81,23 @@ export default class Single extends React.Component{
         }
 
     }
+    // 计算当前滚动总高度
+    totalTop(i){
+        let num = 0;
+        let arr = this.state.startTop;
+        for(let j = 0; j < i; j++){
+            num += arr[j];
+        }
+        return num;
+    }
     // 播放/暂停切换
     playStatus(){
+        let container = this.refs.container;
+        let pList = container.querySelectorAll('p');
         this.setState({
             play: !this.state.play,
-            playState: !this.state.playState
+            playState: !this.state.playState,
+            startTop:  this.startTop(pList)
         },() => {
             let targetVideo = this.refs.audio;
             if(this.state.play){
@@ -150,6 +163,18 @@ export default class Single extends React.Component{
                 lyric: lyricInf
             });
         }
+    }
+
+    // 获取每一行歌词的高度
+    startTop(list){
+        let style,height;
+        let total = [];
+        for(let i = 0; i < list.length; i++){
+            style = window.getComputedStyle(list[i],null) || list[i].currentStyle;
+            height = +style.height.split('px')[0];
+            total.push(height);
+        }
+        return total;
     }
     // 歌曲音量大小设置
     volume(event){
@@ -282,13 +307,13 @@ export default class Single extends React.Component{
                                 <div className="dot"></div>
                             </div>
                             <div className="lyric" style={{zIndex: this.state.lyricShow ? 1 : 0}}>
-                            <pre className="lyric_show" style={{top: this.state.top + 'px'}} onClick={() => this.lyricShow()} ref='lyric'>
+                            <div className="lyric_show" style={{top: this.state.top + 'px'}} onClick={() => this.lyricShow()} ref='lyric'>
                                 {
                                     this.state.lyric.map((item,index) => {
                                         return <p key={index} data-time={item.time.slice(1,6)} className={index === this.state.cur ? 'line_lyric show':'line_lyric'}>{item.lyric}</p>
                                     })
                                 }
-                            </pre>
+                            </div>
                             </div>
                             <div className="bg_animation" style={{zIndex:this.state.lyricShow ? 0 : 1}} onClick={() => this.lyricShow()}>
                                 <img src={this.props.location.state.picUrl} alt="" style={{animationPlayState: playState}} />
