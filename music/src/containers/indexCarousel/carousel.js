@@ -69,6 +69,10 @@ export default class IndexCarousel extends React.Component{
                             <SingleSong source = {status ? result.tracks : null}/>
                         </ul>
                     </div>
+                    {/*歌单*/}
+
+                    {/*自己的歌单列表*/}
+
                 </div>
             )
         }
