@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router,Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './index.css';
 import IndexCarousel from './containers/indexCarousel/carousel';
 import Search from './component/index';
@@ -10,25 +10,23 @@ import MV from './containers/mv/mvIndex';
 import './iconfont/material-icons.css';
 
 // import registerServiceWorker from './registerServiceWorker';
-class Index extends React.Component{
-    constructor(props){
+class Index extends React.Component {
+    constructor(props) {
         super(props);
-
     }
 
-
-    render(){
-        return(
+    render() {
+        return (
             <Router>
                 <div>
-                    <Route exact path="/" component={Search}/>
-                    <Route exact path="/" component={IndexCarousel}/>
-                    <Route path="/single" component={Single}/>
-                    <Route path="/searchIndex" component={SearchIndex}/>
-                    <Route path="/mv/:mvid" component={MV}/>
+                    <Route exact path='/' component={Search} />
+                    <Route exact path='/' component={IndexCarousel} />
+                    <Route path='/single' component={Single} />
+                    <Route path='/searchIndex' component={SearchIndex} />
+                    <Route path='/mv/:mvid' component={MV} />
                 </div>
             </Router>
-        )
+        );
     }
 }
 
@@ -45,7 +43,6 @@ ReactDOM.render(<Index />, document.getElementById('root'));
 
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
-
 
 // https://api.imjad.cn/cloudmusic/?type=search&search_type=1002&s=木暮睦    //获取个人信息
 // 我的歌单id集合
